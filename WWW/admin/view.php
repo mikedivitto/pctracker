@@ -35,7 +35,7 @@ include_once('header.php');
 				echo "<td>" . $last . " minutes ago</td>";
 		}	
 		/*echo "<td>" . $row['UNAME'] . "</td>";		*/
-		if($diff < 180){echo '<td id="availability" bgcolor=red>Unavailable</td>';}
+		if($diff < 180){echo '<td id="availability" bgcolor=red>In Use</td>';}
 		elseif($row['TIMESTAMP'] == 0){echo '<td id="availability" bgcolor=yellow>Not Set Up</td>';}
 		else
 		{

@@ -26,7 +26,7 @@
 		echo "<td>" . $row['OS'] . "</td>";
 		#if($row['TIMESTAMP'] == 0){echo "<td>Not Set Up</td>";}
 		#else{echo "<td>" . $last . " minutes ago</td>";}	
-		if($diff < 180){echo '<td id="availability" bgcolor=red>Unavailable</td>';}
+		if($diff < 180){echo '<td id="availability" bgcolor=red>In Use</td>';}
 		elseif($row['TIMESTAMP'] == 0){echo '<td id="availability" bgcolor=yellow>Not Set Up</td>';}
 		else
 		{

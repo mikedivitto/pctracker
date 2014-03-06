@@ -25,7 +25,7 @@ include_once('header.php');
 				if ($last > 1440){echo "<td>" . floor($last/1440) . " days ago</td>";}
 				else {echo "<td>" . $last . " minutes ago</td>";}
 			}		
-			if($diff < 180){echo '<td id="availability" bgcolor=red>Unavailable</td>';}
+			if($diff < 180){echo '<td id="availability" bgcolor=red>In Use</td>';}
 			elseif($row['TIMESTAMP'] == 0){echo '<td id="availability" bgcolor=yellow>Not Set Up</td>';}
 			else
 			{
@@ -55,7 +55,7 @@ include_once('header.php');
 				if ($last > 1440){echo "<td>" . floor($last/1440) . " days ago</td>";}
 				else {echo "<td>" . $last . " minutes ago</td>";}
 		   }		
-			if($diff < 180){echo '<td id="availability" bgcolor=red>Unavailable</td>';}
+			if($diff < 180){echo '<td id="availability" bgcolor=red>In Use</td>';}
 			elseif($row['TIMESTAMP'] == 0){echo '<td id="availability" bgcolor=yellow>Not Set Up</td>';}
 			else
 			{
