@@ -41,7 +41,7 @@ if(strlen($_GET['hname']) == 0 && strlen($_GET['id']) == 0)
 			else
 				echo "<td>" . $last . " minutes ago</td>";
 		}	
-		if($diff < 180){echo '<td id="availability" bgcolor=red>Unavailable</td>';}
+		if($diff < 180){echo '<td id="availability" bgcolor=red>In Use</td>';}
 		elseif($row['TIMESTAMP'] == 0){echo '<td id="availability" bgcolor=yellow>Not Set Up</td>';}
 		else
 		{
@@ -86,7 +86,7 @@ $result = mysqli_query($con,"SELECT * FROM comptest WHERE `HOSTNAME`=" . $tmp . 
 			else
 				echo "<td>" . $last . " minutes ago</td>";
 		}		
-		if($diff < 180){echo '<td id="availability" bgcolor=red>Unavailable</td>';}
+		if($diff < 180){echo '<td id="availability" bgcolor=red>In Use</td>';}
 		elseif($row['TIMESTAMP'] == 0){echo '<td id="availability" bgcolor=yellow>Not Set Up</td>';}
 		else
 		{
