@@ -1,0 +1,4 @@
+AuthType Basic
+AuthName "RESTRICTED USE"
+AuthUserFile /home/n02482434/WWW/openlabs/restr/.htpasswd
+Require valid-user
