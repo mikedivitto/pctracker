@@ -30,7 +30,7 @@ include_once('header.php');
 			else
 			{
 				if($row['SERVICE'] > 0){echo '<td id="availability" bgcolor=orange>Not In Service</td>';}
-				elseif($row['SERVICE'] == 0){echo '<td id="availability" bgcolor=green>Available</td>';}
+				elseif($row['SERVICE'] == 0){echo '<td id="availability" bgcolor=#30FF30>Available</td>';}
 			}			
 			echo "</tr>";
 		}	
@@ -60,7 +60,7 @@ include_once('header.php');
 			else
 			{
 				if($row['SERVICE'] > 0){echo '<td id="availability" bgcolor=orange>Not In Service</td>';}
-				elseif($row['SERVICE'] == 0){echo '<td id="availability" bgcolor=green>Available</td>';}
+				elseif($row['SERVICE'] == 0){echo '<td id="availability" bgcolor=#30FF30>Available</td>';}
 			}			
 			echo "</tr>";
 		}	
