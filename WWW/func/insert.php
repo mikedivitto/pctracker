@@ -22,20 +22,24 @@ else
 	}
 	if(!in_array($_POST['bldg'],$buildings))
 	{
-		$addb="INSERT INTO `buildings` (NAME) VALUES ('$_POST[bldg]')";
-		$addr="INSERT INTO `rooms` (BUILDING, ROOM) VALUES ('$_POST[bldg]','$_POST[room]')";
+		$addb= sprintf("INSERT INTO `buildings` (NAME) VALUES ('%s')",mysql_real_escape_string($_POST[bldg]));
+		$addr= sprintf("INSERT INTO `rooms` (BUILDING, ROOM) VALUES ('%s','%s')",mysql_real_escape_string($_POST[bldg]),
+		mysql_real_escape_string($_POST[room]));
 		if (!mysqli_query($con,$addb)){die('Error: ' . mysqli_error($con));}
 		if (!mysqli_query($con,$addr)){die('Error: ' . mysqli_error($con));}
 		echo "Building and Room added<br>";
 	}		
 	else if(in_array($_POST['bldg'],$buildings) && !in_array($_POST['room'],$rooms))
 	{
-		$addr="INSERT INTO `rooms` (BUILDING, ROOM) VALUES ('$_POST[bldg]','$_POST[room]')";
+		$addr= sprintf("INSERT INTO `rooms` (BUILDING, ROOM) VALUES ('%s','%s')",mysql_real_escape_string($_POST[bldg]),
+		mysql_real_escape_string($_POST[room]));
 		if (!mysqli_query($con,$addr)){die('Error: ' . mysqli_error($con));}
 		echo "Room added<br>";
 	}
-	$sql="INSERT INTO comptest (HOSTNAME, BUILDING, ROOM, COMPNO, SERVICE, OS)
-	VALUES ('$_POST[hname]','$_POST[bldg]','$_POST[room]','$_POST[comp]','$_POST[srvc]','$_POST[os]')";
+	$sql= sprintf("INSERT INTO comptest (HOSTNAME, BUILDING, ROOM, COMPNO, SERVICE, OS)
+	VALUES ('%s','%s','%s','%s','%s','%s')",mysql_real_escape_string($_POST[hname]),mysql_real_escape_string($_POST[bldg]),
+		mysql_real_escape_string($_POST[room]),mysql_real_escape_string($_POST[comp]),mysql_real_escape_string($_POST[srvc]),
+		mysql_real_escape_string($_POST[os]));
 	if (!mysqli_query($con,$sql)){die('Error: ' . mysqli_error($con));}
 	echo "Record added<br>";
 	mysqli_close($con);

@@ -24,7 +24,9 @@ include_once('../admin/headernl.php');
 	$comp = "\"" . $_POST['comp'] . "\"";
 	$srvc = "\"" . $_POST['srvc'] . "\"";
 	include_once('sqlconn.php');
-	$query = "UPDATE `comptest` SET `OS`=" . $os . ",`BUILDING`=" . $bldg . ",`ROOM`=" . $room . ",`COMPNO`=" . $comp . ",`SERVICE`=" . $srvc . " WHERE `ID`=" . $id;	
+	$query = sprintf('UPDATE `comptest` SET `OS`="%s",`BUILDING`="%s",`ROOM`="%s",`COMPNO`="%s",`SERVICE`="%s" WHERE `ID`="$s"',
+		mysql_real_escape_string($_POST['os']),mysql_real_escape_string($_POST['bldg']),mysql_real_escape_string($_POST['room']),
+		mysql_real_escape_string($_POST['comp']),mysql_real_escape_string($_POST['srvc']),mysql_real_escape_string($_POST['id']));	
 	/*echo "<p>Sending Query: " . $query . "</p>";*/
 	mysqli_query($con,$query);	
 	mysqli_close($con);
