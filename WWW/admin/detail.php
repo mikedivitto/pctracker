@@ -39,7 +39,7 @@ include_once('header.php');
 	elseif (strlen($_GET['hname']) > 0 && strlen($_GET['ID']) == 0)
 	{
 		echo "<h1>Computer Detail</h1><p>Select From List Below</p><br>";
-		$result = mysqli_query($con,sprintf("SELECT * FROM comptest WHERE `HOSTNAME`=\"%s\" ORDER BY `HOSTNAME`",mysql_real_escape_string($_GET['hname'])));		
+		$result = mysqli_query($con,"SELECT * FROM comptest WHERE `HOSTNAME`=\"" . $_GET['hname'] . "\" ORDER BY `HOSTNAME`");		
 		echo "<table border='0'><tr><th width=150>Hostname</th><th width=100>OS</th><th width=100>Building</th>
 			<th width=60>Room</th><th width=80>Comp #</th><th width=150>Last Updated*</th><th width=100>Availability</th></tr>";		
 		while($row = mysqli_fetch_array($result))
@@ -69,7 +69,7 @@ include_once('header.php');
 	else
 	{	
 		$tmp= "\"" . $_GET['hname'] . "\"";		
-		$result = mysqli_query($con,sprintf("SELECT * FROM `comptest` WHERE `HOSTNAME`=%s",mysql_real_escape_string($tmp)));		
+		$result = mysqli_query($con,"SELECT * FROM `comptest` WHERE `HOSTNAME`=$tmp");		
 		$row = mysqli_fetch_array($result);	
 		if(strlen($_GET['ID']) == 0) {$tmpid = "\"" . $row['ID'] . "\"";}
 		else {$tmpid = "\"" . $_GET['ID'] . "\"";}	

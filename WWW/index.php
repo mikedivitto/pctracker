@@ -9,7 +9,7 @@ include_once('header.php');
 	$room=$_GET['room'];
 	$id = "browse";
 	$resultb = mysqli_query($con,"SELECT * FROM buildings ORDER BY NAME");
-	$resultr = mysqli_query($con,sprintf("SELECT * FROM `rooms` WHERE `BUILDING`=\"%s\" ORDER BY ROOM",mysql_real_escape_string($bldg))); 
+	$resultr = mysqli_query($con,"SELECT * FROM `rooms` WHERE `BUILDING`=\"$bldg\" ORDER BY ROOM"); 
 	if(strlen($bldg) > 0 || strlen($room) > 0) {$head = $bldg . " " . $room;}
 	else {$head = "ALL COMPUTERS";}
 	echo "<table border=\"0\"><tr><th id=\"head2\" width=200px><h2><center>Filter</center></h2></th><th id=\"head\" width=100%;><h2>Listing: $head</h2></th></tr><tr><td valign=top><form method=get name=f1 action='index.php'><ul id=$id><li><select name='bldg' onchange='this.form.submit()'>";	
@@ -21,8 +21,8 @@ include_once('header.php');
 	echo "</select></li><li><select name='room' onchange='this.form.submit()'><option value=''>$room_s</option>";
 	while($row = mysqli_fetch_array($resultr)){echo "<option value=" . $row['ROOM'] . ">" . $row['ROOM'] . "</option>";}
 	echo "</select></li><noscript><input type=\"submit\" value=\"Submit\"></noscript></form><li><form action=\"index.php\"><input type=\"submit\" value=\"Reset\"></form></li></ul><td valign=top id=\"print\">";
-	if(strlen($_GET['bldg']) > 0 && strlen($_GET['room']) == 0){$result = mysqli_query($con,sprintf("SELECT * FROM `comptest` WHERE `BUILDING`=\"%s\" ORDER BY ROOM ASC,COMPNO ASC,HOSTNAME ASC",mysql_real_escape_string($bldg)));}
-	elseif (strlen($_GET['bldg']) > 0 && strlen($_GET['room']) > 0){$result = mysqli_query($con,sprintf("SELECT * FROM `comptest` WHERE `BUILDING`=\"%s\" and `ROOM`=\"%s\" ORDER BY COMPNO ASC,HOSTNAME ASC",mysql_real_escape_string($bldg),mysql_real_escape_string($room)));}	
+	if(strlen($_GET['bldg']) > 0 && strlen($_GET['room']) == 0){$result = mysqli_query($con,"SELECT * FROM `comptest` WHERE `BUILDING`=\"$bldg\" ORDER BY ROOM ASC,COMPNO ASC,HOSTNAME ASC");}
+	elseif (strlen($_GET['bldg']) > 0 && strlen($_GET['room']) > 0){$result = mysqli_query($con,"SELECT * FROM `comptest` WHERE `BUILDING`=\"$bldg\" and `ROOM`=\"$room\" ORDER BY COMPNO ASC,HOSTNAME ASC");}	
 	else{$result = mysqli_query($con,"SELECT * FROM `comptest` ORDER BY BUILDING ASC,ROOM ASC,COMPNO ASC");}	
 	include_once('./func/printf.php');
 	echo "</td></tr></table>";
