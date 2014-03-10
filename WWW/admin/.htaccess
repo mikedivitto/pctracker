@@ -1,4 +1,4 @@
 AuthType Basic
 AuthName "Admin Console"
-AuthUserFile /home/n02482434/WWW/openlabs/admin/.htpasswd
+AuthUserFile 
 Require valid-user
