@@ -24,6 +24,7 @@
 			<li class='has-sub'><a href='#'><span>Tools</span></a>
 				<ul>
 					<li><a href='../../phpMyAdmin'><span>phpMyAdmin</span></a></li>
+					<li><a href='../restr/flush.php'><span>Flush Memcache</span></a></li>
 					<li class='last'><a href='reset.php'><span>Reset All</span></a></li>
 				</ul>
 			</li>
