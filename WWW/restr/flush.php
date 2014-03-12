@@ -8,9 +8,16 @@ function customPageHeader(){?>
 	</script>
 <?php }
 include_once('../admin/header.php');
-$mc = new Memcache;
-$mc->connect('localhost', 11211);
-$mc->flush();
-echo "Cache Flushed";
-$mc->close();
+if(class_exists('Memcache'))
+{
+    $mc = new Memcache;
+    $mc->connect('localhost', 11211);
+    $mc->flush();
+    echo "Cache Flushed";
+    $mc->close();
+}
+else
+{
+    echo "Memcache not installed.";
+}
 include_once('footer.php'); ?>
