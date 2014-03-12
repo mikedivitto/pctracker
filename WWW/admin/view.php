@@ -4,7 +4,29 @@ function customPageHeader(){?>
 <?php }	
 include_once('header.php');	
 	include_once('../func/sqlconn.php');		
-	$result = mysqli_query($con,"SELECT * FROM comptest ORDER BY BUILDING ASC,ROOM ASC,HOSTNAME ASC,COMPNO ASC");
+	
+	if(class_exists('Memcache'))
+	{
+		$mc = new Memcache;
+		$mc->connect('localhost', 11211);
+		if(!$result = $mc->get('openlabs_admin_all')){
+			$tmp = mysqli_query($con,"SELECT * FROM comptest ORDER BY BUILDING ASC,ROOM ASC,HOSTNAME ASC,COMPNO ASC");
+			$result = array();
+			while ($row = mysqli_fetch_assoc($tmp)) {
+				array_push($result, $row);	
+			}
+			$mc->set('openlabs_admin_all', $result, 0, 30);
+		}
+		$mc->close();
+	}
+	else{
+		$tmp = mysqli_query($con,"SELECT * FROM comptest ORDER BY BUILDING ASC,ROOM ASC,HOSTNAME ASC,COMPNO ASC");
+		$result = array();
+		while ($row = mysqli_fetch_assoc($tmp)) {
+			array_push($result, $row);	
+		}
+	}	
+	
 	$time = time();
 	echo "<div id=\"status\"><table border='0'>
 			<tr>
@@ -17,7 +39,9 @@ include_once('header.php');
 			/*<th width=125>Last User</th>*/
 			echo "<th width=135>Availability</th>
 			</tr>";	
-	while($row = mysqli_fetch_array($result))
+			
+			
+	foreach($result as &$row)
 	{
 		$diff  = $time - $row['TIMESTAMP'];
 		$last= floor($diff/60);
@@ -44,6 +68,7 @@ include_once('header.php');
 		}		
 		echo "</tr>";
 	}	
+
 	echo "</table><br></div><p>*Availability based on no update for 3 minutes (Subject to change)</p>";	
 	mysqli_close($con);	
 include_once('footer.php');

@@ -46,7 +46,7 @@ if(strlen($_GET['hname']) == 0 && strlen($_GET['id']) == 0)
 		else
 		{
 			if($row['SERVICE'] > 0){echo '<td id="availability" bgcolor=orange>Not In Service</td>';}
-			elseif($row['SERVICE'] == 0){echo '<td id="availability" bgcolor=green>Available</td>';}
+			elseif($row['SERVICE'] == 0){echo '<td id="availability" bgcolor=#30FF30>Available</td>';}
 		}	
 		echo "</tr>";
 	}	
@@ -55,8 +55,7 @@ if(strlen($_GET['hname']) == 0 && strlen($_GET['id']) == 0)
 else
 {
 	echo "<h1>Remove Computer</h1><p>Select From List Below</p><br>";
-$tmp = "\"" . $_GET['hname'] . "\"";
-$result = mysqli_query($con,"SELECT * FROM comptest WHERE `HOSTNAME`=" . $tmp . " ORDER BY `HOSTNAME`");
+	$result = mysqli_query($con,sprintf("SELECT * FROM comptest WHERE `HOSTNAME`=\"%s\" ORDER BY `HOSTNAME`",mysqli_real_escape_string($con,$_GET['hname'])));		
 	echo "<table border='0'>
 	<tr>
 	<th width=150>Hostname</th>
@@ -91,7 +90,7 @@ $result = mysqli_query($con,"SELECT * FROM comptest WHERE `HOSTNAME`=" . $tmp . 
 		else
 		{
 			if($row['SERVICE'] > 0){echo '<td id="availability" bgcolor=orange>Not In Service</td>';}
-			elseif($row['SERVICE'] == 0){echo '<td id="availability" bgcolor=green>Available</td>';}
+			elseif($row['SERVICE'] == 0){echo '<td id="availability" bgcolor=#30FF30>Available</td>';}
 		}	
 		echo "</tr>";
 	}	
