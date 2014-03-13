@@ -4,7 +4,9 @@ OpenLabs
 ###SOFTWARE USED
 - MySQL Server Version 5.1.71  
 - PHP Version 5.3.3  
-- Apache Version 2.2.15
+- Apache Version 2.2.15  
+- Memcached  
+- php-pecl-memcache (not php-pecl-memcached)  
 
 ###INSTALLATION
 - Extract the contents of the WWW folder to a specified directory on the web host.  
