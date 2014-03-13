@@ -43,7 +43,20 @@ include_once('header.php');
 			
 	foreach($result as &$row)
 	{
-		$diff  = $time - $row['TIMESTAMP'];
+        if(class_exists('Memcache'))
+        {
+            $mc = new Memcache;
+            $mc->connect('localhost', 11211);
+            $key = 'openlabs_comp_' . strtoupper($row['HOSTNAME']);
+            if(!$tstamp = $mc->get($key)){
+                $tstamp = time() - 200;
+            }
+            $mc->close();
+        }
+        else{
+            $tstamp = $row['TIMESTAMP'];
+        }
+		$diff  = $time - $tstamp;
 		$last= floor($diff/60);
 		echo "<tr>";
 		echo "<td>" . $row['HOSTNAME'] . "</td>";
@@ -51,7 +64,7 @@ include_once('header.php');
 		echo "<td>" . $row['BUILDING'] . "</td>";
 		echo "<td>" . $row['ROOM'] . "</td>";
 		echo "<td>" . $row['COMPNO'] . "</td>";		
-		if($row['TIMESTAMP'] == 0){echo "<td>Not Set Up</td>";}
+		if($tstamp == 0){echo "<td>Not Set Up</td>";}
 		else{
 			if ($last > 1440)
 				echo "<td>" . floor($last/1440) . " days ago</td>";
@@ -60,7 +73,7 @@ include_once('header.php');
 		}	
 		/*echo "<td>" . $row['UNAME'] . "</td>";		*/
 		if($diff < 180){echo '<td id="availability" bgcolor=red>In Use</td>';}
-		elseif($row['TIMESTAMP'] == 0){echo '<td id="availability" bgcolor=yellow>Not Set Up</td>';}
+		elseif($tstamp == 0){echo '<td id="availability" bgcolor=yellow>Not Set Up</td>';}
 		else
 		{
 			if($row['SERVICE'] > 0){echo '<td id="availability" bgcolor=orange>Not In Service</td>';}

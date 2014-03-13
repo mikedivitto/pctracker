@@ -5,6 +5,8 @@ function customPageHeader(){?>
 <?php }
 	include_once('header.php');
 	include_once('./func/sqlconn.php');
+    $bldg=$_GET['bldg'];
+	$room=$_GET['room'];
 	if(class_exists('Memcache'))
 	{
 		$mc = new Memcache;
@@ -16,31 +18,71 @@ function customPageHeader(){?>
 				array_push($resultb, $row);	
 			}
 			$mc->set('openlabs_home_bldgs', $resultb, 0, 30);
-		}
-		if(!$resulta = $mc->get('openlabs_home_all')){
-			$tmp = mysqli_query($con,"SELECT * FROM `comptest` ORDER BY BUILDING ASC,ROOM ASC,COMPNO ASC");
-			$resulta = array();
-			while ($row = mysqli_fetch_assoc($tmp)) {
-				array_push($resulta, $row);	
-			}
-			$mc->set('openlabs_home_all', $resulta, 0, 30);
-		}
+		}     
+        if(strlen($_GET['bldg']) > 0 && strlen($_GET['room']) == 0){            
+            $key = 'openlabs_brws_' . $_GET['bldg'];
+            if(!$result = $mc->get($key)){
+                $tmp = mysqli_query($con,sprintf("SELECT * FROM `comptest` WHERE `BUILDING`=\"%s\" ORDER BY ROOM ASC,COMPNO ASC,HOSTNAME ASC",mysqli_real_escape_string($con,$bldg)));
+                $result = array();
+                while ($row = mysqli_fetch_assoc($tmp)) {
+                    array_push($result, $row);	
+                }
+                $mc->set($key, $result, 0, 30);
+            }        
+        }        
+        elseif (strlen($_GET['bldg']) > 0 && strlen($_GET['room']) > 0){
+            $key = 'openlabs_brws_' . $_GET['bldg'] . '_' . $_GET['room'];
+            if(!$result = $mc->get($key)){
+                $tmp = mysqli_query($con,sprintf("SELECT * FROM `comptest` WHERE `BUILDING`=\"%s\" and `ROOM`=\"%s\" ORDER BY COMPNO ASC,HOSTNAME 
+                    ASC",mysqli_real_escape_string($con,$bldg),mysqli_real_escape_string($con,$room)));
+                $result = array();
+                while ($row = mysqli_fetch_assoc($tmp)) {
+                    array_push($result, $row);	
+                }
+                $mc->set($key, $result, 0, 30);
+            }         
+        }        
+        else{
+            if(!$result = $mc->get('openlabs_home_all')){
+                $tmp = mysqli_query($con,"SELECT * FROM `comptest` ORDER BY BUILDING ASC,ROOM ASC,COMPNO ASC");
+                $result = array();
+                while ($row = mysqli_fetch_assoc($tmp)) {
+                    array_push($result, $row);	
+                }
+                $mc->set('openlabs_home_all', $result, 0, 30);
+            }            
+        }		
 		$mc->close();
 	}
-	else{
+	else{     
+        if(strlen($_GET['bldg']) > 0 && strlen($_GET['room']) == 0){            
+            $tmp = mysqli_query($con,sprintf("SELECT * FROM `comptest` WHERE `BUILDING`=\"%s\" ORDER BY ROOM ASC,COMPNO ASC,HOSTNAME ASC",mysqli_real_escape_string($con,$bldg)));
+            $result = array();
+            while ($row = mysqli_fetch_assoc($tmp)) {
+                array_push($result, $row);	
+            }
+        }        
+        elseif (strlen($_GET['bldg']) > 0 && strlen($_GET['room']) > 0){           
+           $tmp = mysqli_query($con,sprintf("SELECT * FROM `comptest` WHERE `BUILDING`=\"%s\" and `ROOM`=\"%s\" ORDER BY COMPNO ASC,HOSTNAME 
+                    ASC",mysqli_real_escape_string($con,$bldg),mysqli_real_escape_string($con,$room)));
+           $result = array();
+           while ($row = mysqli_fetch_assoc($tmp)) {
+               array_push($result, $row);	
+           }
+        }	    
+        else{
+           $tmp = mysqli_query($con,"SELECT * FROM `comptest` ORDER BY BUILDING ASC,ROOM ASC,COMPNO ASC");
+           $result = array();
+           while ($row = mysqli_fetch_assoc($tmp)) {
+               array_push($result, $row);	
+           }
+        }
 		$tmp = mysqli_query($con,"SELECT * FROM buildings ORDER BY NAME");
 		$resultb = array();
 		while ($row = mysqli_fetch_assoc($tmp)) {
 			array_push($resultb, $row);	
 		}
-		$tmp = mysqli_query($con,"SELECT * FROM `comptest` ORDER BY BUILDING ASC,ROOM ASC,COMPNO ASC");
-		$resulta = array();
-		while ($row = mysqli_fetch_assoc($tmp)) {
-			array_push($resulta, $row);	
-		}
-	}
-	$bldg=$_GET['bldg'];
-	$room=$_GET['room'];
+    }	
 	$id = "browse";	
 	$resultr = mysqli_query($con,sprintf("SELECT * FROM `rooms` WHERE `BUILDING`=\"%s\" ORDER BY ROOM",mysqli_real_escape_string($con,$bldg))); 
 	if(strlen($bldg) > 0 || strlen($room) > 0) {$head = $bldg . " " . $room;}
@@ -54,9 +96,6 @@ function customPageHeader(){?>
 	echo "</select></li><li><select name='room' onchange='this.form.submit()'><option value=''>$room_s</option>";
 	while($row = mysqli_fetch_array($resultr)){echo "<option value=" . $row['ROOM'] . ">" . $row['ROOM'] . "</option>";}
 	echo "</select></li><noscript><input type=\"submit\" value=\"Submit\"></noscript></form><li><form action=\"index.php\"><input type=\"submit\" value=\"Reset\"></form></li></ul><td valign=top id=\"print\">";	
-	if(strlen($_GET['bldg']) > 0 && strlen($_GET['room']) == 0){$result = mysqli_query($con,sprintf("SELECT * FROM `comptest` WHERE `BUILDING`=\"%s\" ORDER BY ROOM ASC,COMPNO ASC,HOSTNAME ASC",mysqli_real_escape_string($con,$bldg)));}
-	elseif (strlen($_GET['bldg']) > 0 && strlen($_GET['room']) > 0){$result = mysqli_query($con,sprintf("SELECT * FROM `comptest` WHERE `BUILDING`=\"%s\" and `ROOM`=\"%s\" ORDER BY COMPNO ASC,HOSTNAME ASC",mysqli_real_escape_string($con,$bldg),mysqli_real_escape_string($con,$room)));}	
-	else{$result = $resulta;}	
 	include_once('./func/printf.php');
 	echo "</td></tr></table>";
 	mysqli_close($con);

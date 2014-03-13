@@ -14,19 +14,32 @@ include_once('header.php');
 			   <th width=80>Comp #</th><th width=150>Last Updated*</th><th width=100>Availability</th></tr>";		
 		while($row = mysqli_fetch_array($result))
 		{
+            if(class_exists('Memcache'))
+            {
+                $mc = new Memcache;
+                $mc->connect('localhost', 11211);
+                $key = 'openlabs_comp_' . strtoupper($row['HOSTNAME']);
+                if(!$tstamp = $mc->get($key)){
+                    $tstamp = time() - 200;
+                }
+                $mc->close();
+            }
+            else{
+                $tstamp = $row['TIMESTAMP'];
+            }
 			$tmp=$row['HOSTNAME'];
 			$tmpid=$row['ID'];
-			$diff  = $time - $row['TIMESTAMP'];
+			$diff  = $time - $tstamp;
 			$last= floor($diff/60);
 			echo "<tr><td><a href=\"detail.php?hname=$tmp&ID=$tmpid\">" . $row['HOSTNAME'] . "</a></td><td>" . $row['OS'] . "</td>
 			      <td>" . $row['BUILDING'] . "</td><td>" . $row['ROOM'] . "</td><td>" . $row['COMPNO'] . "</td>";			
-			if($row['TIMESTAMP'] == 0){echo "<td>Not Set Up</td>";}
+			if($tstamp == 0){echo "<td>Not Set Up</td>";}
 			else{
 				if ($last > 1440){echo "<td>" . floor($last/1440) . " days ago</td>";}
 				else {echo "<td>" . $last . " minutes ago</td>";}
 			}		
 			if($diff < 180){echo '<td id="availability" bgcolor=red>In Use</td>';}
-			elseif($row['TIMESTAMP'] == 0){echo '<td id="availability" bgcolor=yellow>Not Set Up</td>';}
+			elseif($tstamp == 0){echo '<td id="availability" bgcolor=yellow>Not Set Up</td>';}
 			else
 			{
 				if($row['SERVICE'] > 0){echo '<td id="availability" bgcolor=orange>Not In Service</td>';}
@@ -44,19 +57,32 @@ include_once('header.php');
 			<th width=60>Room</th><th width=80>Comp #</th><th width=150>Last Updated*</th><th width=100>Availability</th></tr>";		
 		while($row = mysqli_fetch_array($result))
 		{
+            if(class_exists('Memcache'))
+            {
+                $mc = new Memcache;
+                $mc->connect('localhost', 11211);
+                $key = 'openlabs_comp_' . strtoupper($row['HOSTNAME']);
+                if(!$tstamp = $mc->get($key)){
+                    $tstamp = time() - 200;
+                }
+                $mc->close();
+            }
+            else{
+                $tstamp = $row['TIMESTAMP'];
+            }
 			$tmp=$row['HOSTNAME'];
 			$tmpid=$row['ID'];
-			$diff  = $time - $row['TIMESTAMP'];
+			$diff  = $time - $tstamp;
 			$last= floor($diff/60);
 			echo "<tr><td><a href=\"detail.php?hname=$tmp&ID=$tmpid\">" . $row['HOSTNAME'] . "</a></td><td>" . $row['OS'] . "</td>
 			      <td>" . $row['BUILDING'] . "</td><td>" . $row['ROOM'] . "</td><td>" . $row['COMPNO'] . "</td>";			
-			if($row['TIMESTAMP'] == 0){echo "<td>Not Set Up</td>";}
+			if($tstamp == 0){echo "<td>Not Set Up</td>";}
 			else{
 				if ($last > 1440){echo "<td>" . floor($last/1440) . " days ago</td>";}
 				else {echo "<td>" . $last . " minutes ago</td>";}
 		   }		
 			if($diff < 180){echo '<td id="availability" bgcolor=red>In Use</td>';}
-			elseif($row['TIMESTAMP'] == 0){echo '<td id="availability" bgcolor=yellow>Not Set Up</td>';}
+			elseif($tstamp == 0){echo '<td id="availability" bgcolor=yellow>Not Set Up</td>';}
 			else
 			{
 				if($row['SERVICE'] > 0){echo '<td id="availability" bgcolor=orange>Not In Service</td>';}
