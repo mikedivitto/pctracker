@@ -18,6 +18,7 @@ OpenLabs
 - Begin adding computers by pointing to /admin and loggin in from there.  
   - Go to Computers -> Register and fill out the web registration form (for each computer).  
   - Each computer must also have the client installed, and run at USER LOGIN (this must be configured).  
+- When running the client, the IP Address of the SERVER must be specified in the vbs script.
 
 ###REMOVAL
 - Remove the client files from each computer and deregister it as a login item.  
