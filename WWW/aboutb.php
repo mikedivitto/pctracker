@@ -23,10 +23,10 @@
 		<li>Count number of available computers i.e. "10 / 20 Available Computers"</li>
 		<li>Convert the python based client to c/c++</li>
 		<li>Clean Up Code... again.</li>
+        <li>Implement memcached</li>
 	</ul>
 	<p>To Do:</p>
 	<ul>
-		<li>Implement memcached</li>
 		<li>Filter By OS (Possibly)</li>
 		<li>Implmement a web framework (Most likely Bootstrap or Foundation).</li>
 		<li>Document the API</li>

@@ -17,7 +17,7 @@ else {include_once('aboutb.php');}
 if(strlen($html) === 0)
 	$html = $html2;
 echo $html;
- include_once('footer.php'); ?>
+include_once('footer.php'); ?>
  
  
 

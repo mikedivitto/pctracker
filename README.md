@@ -2,6 +2,7 @@ OpenLabs
 ========
 
 ###SOFTWARE USED
+- CentOS  
 - MySQL Server Version 5.1.71  
 - PHP Version 5.3.3  
 - Apache Version 2.2.15  
@@ -25,5 +26,7 @@ OpenLabs
 ###NOTES
 - I use phpMyAdmin for administration beyond what the web interface provides, however I DO NOT package this.  
   - This is a separate download, even though there is a link to it in the Admin Console.  
+- In the demo, all are running on the same server (Linux, PHP, Apache, MySQL, memcached, php-pecl-memcache)  
+  - These functions can be disributed, but must be configured accordingly (memcached is great with this).  
 
 **This article still needs to be expanded.**

@@ -24,19 +24,14 @@ if(strlen($_GET['hname']) == 0 && strlen($_GET['id']) == 0)
 	</tr>";	
 	while($row = mysqli_fetch_array($result))
 	{
-        if(class_exists('Memcache'))
-        {
-            $mc = new Memcache;
-            $mc->connect('localhost', 11211);
-            $key = 'openlabs_comp_' . strtoupper($row['HOSTNAME']);
-            if(!$tstamp = $mc->get($key)){
-                $tstamp = time() - 200;
-            }
-            $mc->close();
-        }
-        else{
-            $tstamp = $row['TIMESTAMP'];
-        }
+		if(class_exists('Memcache')){
+			$mc = new Memcache;
+			$mc->connect('localhost', 11211);
+			$key = 'openlabs_comp_' . strtoupper($row['HOSTNAME']);
+			if(!$tstamp = $mc->get($key)){$tstamp = time() - 200;}
+			$mc->close();
+		}
+		else{$tstamp = $row['TIMESTAMP'];}
 		$tmp=$row['HOSTNAME'];
 		$tmpid=$row['ID'];
 		$diff  = $time - $tstamp;
@@ -81,19 +76,14 @@ else
 	</tr>";	
 	while($row = mysqli_fetch_array($result))
 	{
-        if(class_exists('Memcache'))
-            {
-                $mc = new Memcache;
-                $mc->connect('localhost', 11211);
-                $key = 'openlabs_comp_' . strtoupper($row['HOSTNAME']);
-                if(!$tstamp = $mc->get($key)){
-                    $tstamp = time() - 200;
-                }
-                $mc->close();
-            }
-            else{
-                $tstamp = $row['TIMESTAMP'];
-            }
+		if(class_exists('Memcache')){
+			$mc = new Memcache;
+			$mc->connect('localhost', 11211);
+			$key = 'openlabs_comp_' . strtoupper($row['HOSTNAME']);
+			if(!$tstamp = $mc->get($key)){$tstamp = time() - 200;}
+			$mc->close();
+		}
+		else{$tstamp = $row['TIMESTAMP'];}
 		$tmp=$row['HOSTNAME'];
 		$tmpid=$row['ID'];
 		$diff  = $time - $tstamp;
@@ -121,7 +111,7 @@ else
 		echo "</tr>";
 	}	
 }
-	include_once('footer.php');
-	mysqli_close($con);
+include_once('footer.php');
+mysqli_close($con);
 include_once('footer.php'); 
 ?>
