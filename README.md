@@ -29,5 +29,6 @@ OpenLabs
   - This is a separate download, even though there is a link to it in the Admin Console.  
 - In the demo, all are running on the same server (Linux, PHP, Apache, MySQL, memcached, php-pecl-memcache)  
   - These functions can be disributed, but must be configured accordingly (memcached is great with this).  
+- I have recreated this on a virtual machine using the software noted above and have gotten this to work with basic configurations. The server configuration is completely up to the server admin, however the software above is necessary for this platform to run (Apache, MySQL, Memcache, etc.).  
 
 **This article still needs to be expanded.**
