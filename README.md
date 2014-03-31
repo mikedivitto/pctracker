@@ -9,6 +9,9 @@ OpenLabs
 - Memcached  
 - php-pecl-memcache (not php-pecl-memcached)  
 
+- The server configuration is completely up to the server admin, however the software above is necessary for this platform to run (Apache, MySQL, Memcache, etc.).  
+  - It is basically just a LAMP server with memcached.
+
 ###INSTALLATION
 - Extract the contents of the WWW folder to a specified directory on the web host.  
 - Edit /func/config.php and enter the Database information (DB Name, Credentials, etc.).  
@@ -17,11 +20,11 @@ OpenLabs
   - This will setup the database for use.  
 - Begin adding computers by pointing to /admin and loggin in from there.  
   - Go to Computers -> Register and fill out the web registration form (for each computer).  
-  - Each computer must also have the client installed, and run at USER LOGIN (this must be configured).  
-- When running the client, the IP Address of the SERVER must be specified in the vbs script.
+  - Each Computer must have the client installed (which automatically registers it to run while logged in).  
+- The script must be updated to include the Server IP, Server Name, and the Directory
 
 ###REMOVAL
-- Remove the client files from each computer and deregister it as a login item.  
+- Run the uninstaller from the Add/Remove Programs
 - The database can be dropped (manually), and the contents from the WWW directory can just be deleted.  
 
 ###NOTES
@@ -29,6 +32,4 @@ OpenLabs
   - This is a separate download, even though there is a link to it in the Admin Console.  
 - In the demo, all are running on the same server (Linux, PHP, Apache, MySQL, memcached, php-pecl-memcache)  
   - These functions can be disributed, but must be configured accordingly (memcached is great with this).  
-- I have recreated this on a virtual machine using the software noted above and have gotten this to work with basic configurations. The server configuration is completely up to the server admin, however the software above is necessary for this platform to run (Apache, MySQL, Memcache, etc.).  
-
-**This article still needs to be expanded.**
+- I have recreated this on a virtual machine using the software noted above and have gotten this to work with basic configurations. 
