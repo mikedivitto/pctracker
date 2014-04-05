@@ -8,7 +8,7 @@ OpenLabs
 - Apache Version 2.2.15  
 - Memcached  
 - php-pecl-memcache (not php-pecl-memcached)  
-
+  
 - The server configuration is completely up to the server admin, however the software above is necessary for this platform to run (Apache, MySQL, Memcache, etc.).  
   - It is basically just a LAMP server with memcached.
 
