@@ -1,0 +1,33 @@
+body
+{
+	background-image:url("bkgd.gif");
+}
+.headerbar
+{
+	background-color:#003E7E !important;
+	margin:-8px -15px -8px -15px;
+	padding:8px 0px 4px 0px;
+}
+h1
+{
+	padding:0px;
+	margin:10px;
+	color:#f58426;
+}
+.container
+{
+	background-color:#EEE;
+	border:6px solid white;
+}
+.content
+{
+	margin-top:30px;
+}
+.form-group
+{
+	padding: 0px 6px 0px 6px;
+}
+.colorbar
+{
+	margin: 0px -15px 0px -15px;
+}

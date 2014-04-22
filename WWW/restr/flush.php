@@ -1,23 +1,32 @@
 <?php
-$PageTitle="Flush Cache";
-function customPageHeader(){?>
-<script type="text/JavaScript">
-	<!--
-	setTimeout("location.href = '../admin/index.php';",1500);
-	-->
-	</script>
-<?php }
-include_once('../admin/header.php');
-if(class_exists('Memcache'))
+session_start();
+
+if(!isset($_SESSION['status']) || $_SESSION['status'] === 0)
 {
-    $mc = new Memcache;
-    $mc->connect('localhost', 11211);
-    $mc->flush();
-    echo "Cache Flushed";
-    $mc->close();
+	$_SESSION['message'] = "Not Logged In.";
+	header("Location: ../admin/login.php");
+	exit();
+}
+if($_SESSION['level'] == 0)
+	{
+	if(class_exists('Memcache'))
+	{
+		$mc = new Memcache;
+		$mc->connect('localhost', 11211);
+		$mc->flush();
+		$_SESSION['message'] =  "Cache Flushed";
+		$mc->close();
+	}
+	else
+	{
+		$_SESSION['message'] =  "Memcache not installed.";
+	}
+	header("Location: ../admin/index.php");
+	exit();
 }
 else
 {
-    echo "Memcache not installed.";
-}
-include_once('footer.php'); ?>
+	$_SESSION['message'] = "NOT AUTHORIZED.";
+	header("Location: ../admin/login.php");
+	exit();
+} ?>

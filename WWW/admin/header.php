@@ -1,35 +1,93 @@
-<!doctype html>
-<html>
+<?php
+include_once('../func/config.php');
+session_start();
+
+if(!isset($_SESSION['status']) || $_SESSION['status'] === 0)
+{
+	header("Location: ./login.php");
+	exit();
+}
+
+$timeh = time();
+
+if($_SESSION['timeout'] > ($timeh + 1800))
+{
+	header("Location: ./logout.php");
+	$_SESSION['message'] = "User timed out (30 minutes)";
+	exit();
+}
+else
+{
+	$_SESSION['timeout'] = $timeh;
+}
+?>
+
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><?= isset($PageTitle) ? $PageTitle : "Default Title"?></title>
-    <link rel="stylesheet" type="text/css" href="../css/admin.css">
-    <?php if (function_exists('customPageHeader')){customPageHeader();}?>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/dashboard.css" rel="stylesheet">
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
   </head>
   <body>
-    <div class="header">
-	<h1 align=center>Admin Console</h1>
-	<div id='cssmenu'>
-		<ul>
-  			<li><a href='index.php'><span>Home</span></a></li>
- 			<li><a href='view.php'><span>Status</span></a></li>
-			<li class='has-sub'><a href='#'><span>Computers</span></a>
-				<ul>
-					<li><a href='add.php'><span>Register</span></a></li>
-					<li><a href='detail.php'><span>Detail</span></a></li>
-					<li class='last'><a href='remove.php'><span>Remove</span></a></li>
-				</ul>
-			</li>
-			<li><a href='download.php'><span>Download</span></a></li>
-			<li class='has-sub'><a href='#'><span>Tools</span></a>
-				<ul>
-					<li><a href='../../phpMyAdmin'><span>phpMyAdmin</span></a></li>
-					<li><a href='../restr/flush.php'><span>Flush Memcache</span></a></li>
-					<li class='last'><a href='reset.php'><span>Reset All</span></a></li>
-				</ul>
-			</li>
-			<li class='last'><a href='../index.php'><span>Exit</span></a></li>
-		</ul>
-	</div>    
-   	</div>
-    <div class="content">
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.php">Admin Console</a>
+        </div>		
+        <div class="navbar-collapse collapse">
+          <ul class="nav navbar-nav navbar-right">
+            <!--<li><a href="#">Settings</a></li>-->
+            <li><a href="#">Welcome, <?php echo $_SESSION['nickname']; ?></a></li>
+			<li><a href="index.php">Status</a></li>
+            <li><a href="logout.php">Logout</a></li>
+          </ul>
+          <!--form class="navbar-form navbar-right">
+            <input type="text" class="form-control" placeholder="Search...">
+          </form>-->
+		  
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <ul class="nav nav-sidebar">
+            <li><a href="index.php">Home</a></li>
+            <li><a href="download.php">Download</a></li>
+			<li><a href="about.php">About</a></li>
+          </ul>
+		  <h4>Computers</h4>
+          <ul class="nav nav-sidebar">
+            <li><a href="add.php">Register</a></li>
+            <li><a href="detail.php">Detail</a></li>
+            <li><a href="remove.php">Remove</a></li>
+          </ul>
+		  <h4>Buildings</h4>
+		  <ul class="nav nav-sidebar">
+			<li><a href="buildings.php">Building Mgmt.</a></li>
+		  </ul>
+		  <h4>Tools</h4>
+          <ul class="nav nav-sidebar">
+            <li><a href="../../phpMyAdmin/" target="_blank">phpMyAdmin</a></li>
+            <li><a href="../restr/flush.php">Flush Memcache</a></li>
+            <li><a href="reset.php">Reset All</a></li>
+          </ul>
+        </div>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+		<?php  if(isset($_SESSION['message'])) { echo '<div class="alert alert-danger">' . $_SESSION['message'] . '</div>';} unset($_SESSION['message']); ?>
+          
