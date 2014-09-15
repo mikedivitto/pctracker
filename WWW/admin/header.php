@@ -67,25 +67,22 @@ else
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar">
-            <li><a href="index.php">Home</a></li>
-            <li><a href="download.php">Download</a></li>
-			<li><a href="about.php">About</a></li>
+            <li><a href="index.php">Admin Home</a></li>
+            <li><a href="../" target="_blank">User Home</a></li>
+            <li><a href="download.php">Download</a></li>			      
           </ul>
-		  <h4>Computers</h4>
+    		  <h4>Management</h4>
           <ul class="nav nav-sidebar">
-            <li><a href="add.php">Register</a></li>
-            <li><a href="detail.php">Detail</a></li>
-            <li><a href="remove.php">Remove</a></li>
+            <li><a href="chome.php">Computers</a></li>
+            <li><a href="buildings.php">Buildings</a></li>
+            <li><a href="users.php">Users</a></li>
           </ul>
-		  <h4>Buildings</h4>
-		  <ul class="nav nav-sidebar">
-			<li><a href="buildings.php">Building Mgmt.</a></li>
-		  </ul>
-		  <h4>Tools</h4>
+		      <h4>Tools</h4>
           <ul class="nav nav-sidebar">
             <li><a href="../../phpMyAdmin/" target="_blank">phpMyAdmin</a></li>
             <li><a href="../restr/flush.php">Flush Memcache</a></li>
             <li><a href="reset.php">Reset All</a></li>
+            <li><a href="about.php">About</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">

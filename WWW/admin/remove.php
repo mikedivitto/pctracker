@@ -11,12 +11,23 @@ if(strlen($_GET['hname']) == 0 && strlen($_GET['id']) == 0)
 	<div class="centered-panel">
 		<div class="panel panel-default">
 			<div class="panel-heading"><center><h1 class="panel-title">Remove Computer</h1></center></div>
-			<div class="panel-body">
-				<?
-					echo "<p>Enter Hostname or Select From List Below</p><br>
-					<form action=\"remove.php\" method=\"get\">Hostname: <input type=\"text\" name=\"hname\" autofocus><br>
-					<input type=\"submit\" value=\"Submit\" id=\"submitbutton\">
-					</form><br><br>";
+			<div class="panel-body">				
+					<p>Enter Hostname or Select From List Below</p><br>
+					<form class="form-inline" action="remove.php" method="get">				
+						<div class="form-group">
+							<label for="inputEmail3" class="col-sm-4 control-label col-md-4">Hostname</label>
+							<div class="col-sm-8 col-md-8">
+								<input class="form-control" id="inputEmail3" type="text" name="hname" autofocus>
+							</div>
+						</div>
+						<div class="form-group">
+							<div>
+								<input class="btn btn-default" type="submit" value="Submit" id="submitbutton">
+							</div>
+						</div>
+					</form>	
+					<br><br>
+					<?
 					$result = mysqli_query($con,"SELECT * FROM " . $DB_COMPUTERS . " ORDER BY `HOSTNAME`");
 					echo "<table border='0'>
 					<tr>

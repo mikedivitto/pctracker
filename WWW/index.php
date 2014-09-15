@@ -1,6 +1,6 @@
 <?php 
 	include_once('./func/sqlconn.php');
-    $bldg=$_GET['bldg'];
+	$bldg=$_GET['bldg'];
 	$room=$_GET['room'];
 	if(class_exists('Memcache')){	
 		$mc = new Memcache;
@@ -119,15 +119,41 @@
 <html>
 	<head>
 		<title>Computer Lab Availability</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">	
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">	
 		<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 		<link href="css/openlabs.css" rel="stylesheet">
 		<meta http-equiv="refresh" content="30" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="apple-touch-icon" href="css/ico.png">
 		<!--[if lt IE 9]>
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-		<![endif]-->
+		<![endif]-->		
+		<script type="text/javascript" src="https://www.google.com/jsapi?autoload={'modules':[{'name':'visualization','version':'1','packages':['corechart']}]}"></script>
+		<script type="text/javascript">
+			google.setOnLoadCallback(drawChart);
+	      function drawChart() {
+	
+	        var data = google.visualization.arrayToDataTable([
+	          ['# Computers', 'Availability'],
+	          ['Available',   <?php echo $avail; ?>  ],
+	          ['Unavailable',  <?php echo $total - $avail; ?>    ]
+	        ]);
+	
+	        var options = {
+	            legend: 'none',
+	            pieSliceText: 'value',
+	            colors: ['green', 'red']
+	        };
+	
+	        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+	
+	        chart.draw(data, options);
+	      }
+		</script>
 	</head>
 	<body>
 		<div class="container">
@@ -154,7 +180,7 @@
 											<div class="form-group">
 												<select class="form-control" name='room' onchange='this.form.submit()'>
 													<?php
-														if(strlen($room > 0)) {echo "<option value=''>$room</option>";}
+														if(strlen($room > 0)) {echo "<option value=''>" . $room . "</option>";}
 														else {echo "<option value=''>Select Room</option>";}
 														while($row = mysqli_fetch_array($resultr)){echo "<option value=" . $row['ROOM'] . ">" . $row['ROOM'] . "</option>";}
 													?>
@@ -173,6 +199,7 @@
 									<div class="panel-heading"><center><h1 class="panel-title">CURRENT USAGE</h1></div>
 									<div class="panel-body">
 										<?php echo $avail . " / " . $total . " Computers Available"; ?>
+										<div id="piechart" style="width: 100%;"></div>
 									</div>
 								</div>
 							</div>
