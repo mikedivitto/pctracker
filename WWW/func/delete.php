@@ -29,7 +29,7 @@ if($_SESSION['level'] == 0)
 else
 {
 	$_SESSION['message'] = "NOT AUTHORIZED.";
-	header("Location: ../admin/login.php");
+	header("Location: ../admin");
 	exit();
 }
 include_once('footer.php');

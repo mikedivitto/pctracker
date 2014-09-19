@@ -4,6 +4,14 @@ function customPageHeader(){?>
 <?php }	
 include_once('header.php');
 include_once('../func/sqlconn.php');
+
+if($_SESSION['level'] > 2)
+{
+	$_SESSION['message'] = "NOT AUTHORIZED.";
+	header("Location: ../admin");
+	exit();
+}
+
 if(isset($_POST['type']))
 {
 	if($_POST['type'] === "remv")

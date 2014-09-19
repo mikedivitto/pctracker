@@ -11,7 +11,7 @@ if(!isset($_SESSION['status']) || $_SESSION['status'] === 0)
 	header("Location: ../admin/login.php");
 	exit();
 }
-if($_SESSION['level'] == 0)
+if($_SESSION['level'] < 3)
 {
 	include_once('sqlconn.php');
 	$query = sprintf("UPDATE `" . $DB_COMPUTERS . "` SET `OS`=\"%s\",`BUILDING`=\"%s\",`ROOM`=\"%s\",`COMPNO`=\"%s\",`SERVICE`=\"%s\" WHERE `ID`=\"%s\"",
@@ -27,7 +27,7 @@ if($_SESSION['level'] == 0)
 else
 {
 	$_SESSION['message'] = "NOT AUTHORIZED.";
-	header("Location: ../admin/login.php");
+	header("Location: ../admin");
 	exit();
 }
 include_once('footer.php');

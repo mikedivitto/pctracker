@@ -74,14 +74,14 @@ else
     		  <h4>Management</h4>
           <ul class="nav nav-sidebar">
             <li><a href="chome.php">Computers</a></li>
-            <li><a href="buildings.php">Buildings</a></li>
-            <li><a href="users.php">Users</a></li>
+            <?php if($_SESSION['level'] < 2) echo '<li><a href="buildings.php">Buildings</a></li>'; ?>
+            <?php if($_SESSION['level'] == 0) echo '<li><a href="users.php">Users</a></li>'; ?>
           </ul>
 		      <h4>Tools</h4>
           <ul class="nav nav-sidebar">
-            <li><a href="../../phpMyAdmin/" target="_blank">phpMyAdmin</a></li>
-            <li><a href="../restr/flush.php">Flush Memcache</a></li>
-            <li><a href="reset.php">Reset All</a></li>
+            <?php if($_SESSION['level'] == 0) echo '<li><a href="../../phpMyAdmin/" target="_blank">phpMyAdmin</a></li>'; ?>
+            <?php if($_SESSION['level'] == 0) echo '<li><a href="../restr/flush.php">Flush Memcache</a></li>'; ?>
+            <?php if($_SESSION['level'] == 0) echo '<li><a href="reset.php">Reset All</a></li>'; ?>
             <li><a href="about.php">About</a></li>
           </ul>
         </div>

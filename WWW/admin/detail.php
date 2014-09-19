@@ -137,31 +137,34 @@ else
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label col-md-3">OS</label>
 						<div class="col-sm-9 col-md-8 col-lg-6">
-							<input class="form-control" id="inputEmail3" type="text" name="os" value="<?php echo $row['OS']; ?>" autofocus>
+							<input class="form-control" id="inputEmail3" type="text" name="os" value="<?php echo $row['OS']; ?>" autofocus <? if($_SESSION['level'] > 1) echo 'readonly'; ?>>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label col-md-3">Building</label>
 						<div class="col-sm-9 col-md-8 col-lg-6">
-							<input class="form-control" id="inputEmail3" type="text" name="bldg" value="<?php echo $row['BUILDING']; ?>">
+							<input class="form-control" id="inputEmail3" type="text" name="bldg" value="<?php echo $row['BUILDING']; ?>" <? if($_SESSION['level'] > 1) echo 'readonly'; ?>>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label col-md-3">Room</label>
 						<div class="col-sm-9 col-md-8 col-lg-6">
-							<input class="form-control" id="inputEmail3" type="text" name="room" value="<?php echo $row['ROOM']; ?>">
+							<input class="form-control" id="inputEmail3" type="text" name="room" value="<?php echo $row['ROOM']; ?>" <? if($_SESSION['level'] > 1) echo 'readonly'; ?>>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label col-md-3">Computer Number</label>
 						<div class="col-sm-9 col-md-8 col-lg-6">
-							<input class="form-control" id="inputEmail3" type="text" name="comp" value="<?php echo $row['COMPNO']; ?>">
+							<input class="form-control" id="inputEmail3" type="text" name="comp" value="<?php echo $row['COMPNO']; ?>" <? if($_SESSION['level'] > 1) echo 'readonly'; ?>>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="inputEmail3" class="col-sm-3 control-label col-md-3">Service Status</label>
 						<div class="col-sm-9 col-md-8 col-lg-6">
-							<input class="form-control" id="inputEmail3" type="text" name="srvc" value="<?php echo $row['SERVICE'];?>">
+                            <select class="form-control" id="inputEmail3" type="text" name="srvc">
+                                <option value='0' <? if($row['SERVICE'] == 0) echo "selected"; ?></option>In Service</option>
+                                <option value='1' <? if($row['SERVICE'] == 1) echo "selected"; ?>>Not In Service</option>
+                            </select>
 						</div>
 					</div>
 					<div class="form-group">
