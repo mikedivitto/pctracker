@@ -23,7 +23,7 @@ if($_SESSION['level'] == 0)
 		$_SESSION['message'] = "Record Deleted";
 		mysqli_close($con);
 	}
-	header("Location: ../admin/");
+	header("Location: ../admin/cmanage.php");
 	exit();
 }
 else

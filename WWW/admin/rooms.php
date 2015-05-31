@@ -5,12 +5,21 @@ function customPageHeader(){?>
 include_once('header.php');
 include_once('../func/sqlconn.php');
 
+if($_SESSION['level'] > 1)
+{
+    $_SESSION['message'] = "NOT AUTHORIZED.";
+	header("Location: ../admin/");
+	exit();
+}
+
 if(!(isset($_GET['req']) || isset($_POST['type'])))
 {
 	$_SESSION['message'] = "Invalid Request";
 	header("Location: ./");
 	exit();
 }
+
+
 
 if($_POST['type'] === "edit")
 {

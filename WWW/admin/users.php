@@ -20,7 +20,10 @@ while ($row = mysqli_fetch_assoc($tmp)) {
 $resultstr = "";
 foreach ($result as &$row)
 {
+    if($_SESSION['level'] == 0 /*or $_SESSION['email'] == $row['EMAIL']*/)
+	{
 	$resultstr = $resultstr . "<tr><td><big>" . $row['EMAIL'] . "</big></td><td><a class='btn btn-warning btn-xs' href='users.php?req=edit&id=" . $row['ID'] . "'>Edit</a></td><td><a class='btn btn-danger btn-xs' href='users.php?req=remv&id=" . $row['ID'] . "&nname=" . $row['NICKNAME'] . "'>Remove</a></td></tr>";
+	}
 }
 
 

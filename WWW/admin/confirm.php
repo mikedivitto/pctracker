@@ -2,6 +2,14 @@
 $PageTitle="Confirm Delete";
 function customPageHeader(){?>
 <?php }
+
+if($_SESSION['level'] > 1)
+{
+    $_SESSION['message'] = "NOT AUTHORIZED.";
+	header("Location: ../admin/");
+	exit();
+}
+
 include_once('header.php');
 	$tmp = $_POST['hname'];
 	$tmpid = $_POST['id'];

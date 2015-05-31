@@ -35,6 +35,7 @@ else
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   </head>
   <body>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -66,25 +67,33 @@ else
     <div class="container-fluid">
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
-          <ul class="nav nav-sidebar">
-            <li><a href="index.php">Admin Home</a></li>
+          <ul class="nav nav-sidebar nav-pills nav-stacked">
+            <li <? if (basename($_SERVER['PHP_SELF']) == "index.php") echo "class='active'"; ?>><a href="index.php">Admin Home</a></li>
             <li><a href="../" target="_blank">User Home</a></li>
-            <li><a href="download.php">Download</a></li>			      
+            		      
           </ul>
+            <h4>Reservations</h4>
+            <ul class="nav nav-sidebar nav-pills nav-stacked">
+                <li><a href="/~divittom/pctracker/admin/resapp/?action=admin">Manage Reservations</a></li>
+                <li><a href="/~divittom/pctracker/admin/resapp/">Schedule a Reservation</a></li>
+            </ul>
     		  <h4>Management</h4>
-          <ul class="nav nav-sidebar">
-            <li><a href="chome.php">Computers</a></li>
-            <?php if($_SESSION['level'] < 2) echo '<li><a href="buildings.php">Buildings</a></li>'; ?>
-            <?php if($_SESSION['level'] == 0) echo '<li><a href="users.php">Users</a></li>'; ?>
+          <ul class="nav nav-sidebar nav-pills nav-stacked">
+            <li <? if (basename($_SERVER['PHP_SELF']) == "cmanage.php") echo "class='active'"; ?>><a href="cmanage.php">Computers</a></li>
+            <?php if($_SESSION['level'] < 2) { echo '<li '; if (basename($_SERVER['PHP_SELF']) == "buildings.php" or basename($_SERVER['PHP_SELF']) == "rooms.php") echo "class='active'"; echo'><a href="buildings.php">Buildings</a></li>';} ?>
+            <?php if($_SESSION['level'] == 0) {echo '<li '; if (basename($_SERVER['PHP_SELF']) == "users.php") echo "class='active'"; echo '><a href="users.php">Users</a></li>';} ?>
           </ul>
 		      <h4>Tools</h4>
-          <ul class="nav nav-sidebar">
-            <?php if($_SESSION['level'] == 0) echo '<li><a href="../../phpMyAdmin/" target="_blank">phpMyAdmin</a></li>'; ?>
+          <ul class="nav nav-sidebar nav-pills nav-stacked">
+              <? if($_SESSION['level'] < 2) { echo '<li '; if (basename($_SERVER['PHP_SELF']) == "cpwd.php") echo "class='active'"; echo'><a href="cpwd.php">Change Password</a></li>';} ?>
+              	
+            <?php if($_SESSION['level'] == 0) echo '<li><a href="' . $OL_PHPMYADMIN . '" target="_blank">phpMyAdmin</a></li>'; ?>
             <?php if($_SESSION['level'] == 0) echo '<li><a href="../restr/flush.php">Flush Memcache</a></li>'; ?>
-            <?php if($_SESSION['level'] == 0) echo '<li><a href="reset.php">Reset All</a></li>'; ?>
-            <li><a href="about.php">About</a></li>
+            <?php if($_SESSION['level'] == 0) echo '<!--<li><a href="reset.php">Reset All</a></li>-->'; ?>
+              <li <? if (basename($_SERVER['PHP_SELF']) == "download.php") echo "class='active'"; ?>><a href="download.php">Download</a></li>
+            <li <? if (basename($_SERVER['PHP_SELF']) == "about.php") echo "class='active'"; ?>><a href="about.php">About</a></li>
           </ul>
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-		<?php  if(isset($_SESSION['message'])) { echo '<div class="alert alert-danger">' . $_SESSION['message'] . '</div>';} unset($_SESSION['message']); ?>
+		<?php  if(isset($_SESSION['message'])) { echo '<div class="alert alert-danger">' . $_SESSION['message'] . '<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> </div>';} unset($_SESSION['message']); ?>
           

@@ -5,6 +5,14 @@ function customPageHeader(){?>
 include_once('header.php');
 include_once('../func/sqlconn.php');
 	$time = time();
+
+if($_SESSION['level'] > 1)
+{
+    $_SESSION['message'] = "NOT AUTHORIZED.";
+	header("Location: ../admin/");
+	exit();
+}
+
 if(strlen($_GET['hname']) == 0 && strlen($_GET['id']) == 0)
 {
 	?>

@@ -124,3 +124,7 @@ body
 	max-width: 768px !important;
 	margin: 0px auto !important;
 }
+
+.nav-pills > li > a {
+ 	border-radius: 0px;   
+}

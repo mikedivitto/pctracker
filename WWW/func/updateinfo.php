@@ -21,7 +21,7 @@ if($_SESSION['level'] < 3)
 	mysqli_query($con,$query);	
 	mysqli_close($con);
 	$_SESSION['message'] = "Record Updated";
-	header("Location: ../admin/");
+	header("Location: ../admin/cmanage.php");
 	exit();
 }
 else

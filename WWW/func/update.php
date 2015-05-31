@@ -22,4 +22,7 @@ else{
 	mysqli_query($con,$query);
 	mysqli_close($con);
 }
+//$txt = date('m/d/Y h:i:s a', time()) . ": " . $_GET['hname'] . " 
+//pinged the server.";
+//file_put_contents('../logs/updates.txt', $txt.PHP_EOL , FILE_APPEND);
 ?>

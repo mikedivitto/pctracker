@@ -162,7 +162,7 @@ else
 						<label for="inputEmail3" class="col-sm-3 control-label col-md-3">Service Status</label>
 						<div class="col-sm-9 col-md-8 col-lg-6">
                             <select class="form-control" id="inputEmail3" type="text" name="srvc">
-                                <option value='0' <? if($row['SERVICE'] == 0) echo "selected"; ?></option>In Service</option>
+                                <option value='0' <? if($row['SERVICE'] == 0) echo "selected"; ?>>In Service</option>
                                 <option value='1' <? if($row['SERVICE'] == 1) echo "selected"; ?>>Not In Service</option>
                             </select>
 						</div>

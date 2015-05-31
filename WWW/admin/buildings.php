@@ -5,7 +5,7 @@ function customPageHeader(){?>
 include_once('header.php');
 include_once('../func/sqlconn.php');
 
-if($_SESSION['level'] > 2)
+if($_SESSION['level'] > 1)
 {
 	$_SESSION['message'] = "NOT AUTHORIZED.";
 	header("Location: ../admin");
