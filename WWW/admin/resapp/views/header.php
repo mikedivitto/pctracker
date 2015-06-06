@@ -79,8 +79,8 @@ else
       <div class="row">
         <div class="col-sm-3 col-md-2 sidebar">
           <ul class="nav nav-sidebar nav-pills nav-stacked">
-            <li><a href="index.php">Admin Home</a></li>
-            <li><a href="../" target="_blank">User Home</a></li>
+            <li><a href="../index.php">Admin Home</a></li>
+            <li><a href="../../" target="_blank">User Home</a></li>
             		      
           </ul>
             <h4>Reservations</h4>
